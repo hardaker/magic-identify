@@ -15,8 +15,7 @@ IDENTIFY_CASES = [
 
 
 class TestMagicIdentify:
-    def setup_method(self):
-        self.mi = magicidentify.MagicIdentify()
+    mi = magicidentify.MagicIdentify()
 
     def test_identify(self):
         # TODO: Since none of the test results are interesting from identify
