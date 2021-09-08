@@ -20,15 +20,15 @@ Example usage:
 """
 
 import sys
-import magic
 import logging
-from identify import identify
+from logging import debug, info, warning, error, critical
 
 
 class MagicIdentify():
     """A wrapper class around both the magic and identify classes"""
     def __init__(self, prefer_identify=False):
         try:
+            import magic
             self.magic = magic.Magic(magic.MAGIC_MIME)
         except Exception as ex:
             debug(f"magic creation exception: {ex}")
@@ -69,6 +69,7 @@ class MagicIdentify():
     def use_identify(self, filepath):
         "try using the identify module for determining file type"
         try:
+            from identify import identify
             f = open(filepath)
             topline = next(f)
 
