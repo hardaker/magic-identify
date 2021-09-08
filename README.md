@@ -24,5 +24,5 @@ identifier.
 
 # Todo
 
-- Handle more boring cases from some outputs
+- Handle more boring cases from some outputs (text/inode)
 - test suite
