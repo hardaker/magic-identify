@@ -20,7 +20,17 @@ identifier.
     
 # Example CLI use:
 
-    magic-identify /bin/ls
+    # magic-identify /bin/ls /sbin/ifup
+    /bin/ls: application/x-pie-executable, application/x-pie-executable
+      using magic:    application/x-pie-executable, application/x-pie-executable
+      using identify: unknown, unknown
+    /sbin/ifup: inode/symlink, inode/symlink
+      using magic:    inode/symlink, inode/symlink
+      using identify: bash/shell, text/x-bash
+
+    # magic-identify -q /bin/ls /sbin/ifup
+    application/x-pie-executable
+    inode/symlink
 
 # Todo
 
