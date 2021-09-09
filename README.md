@@ -36,3 +36,9 @@ identifier.
 
 - Handle more boring cases from some outputs (text/inode)
 - test suite
+
+# Acknowledgements
+
+The following wonderful github accounts have contributed to the code base:
+
+- @JakeRoggenbuck
