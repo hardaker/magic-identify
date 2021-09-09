@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="magic-identify",
-    version="0.1",
+    version="0.1.1",
     author="Wes Hardaker",
     author_email="opensource@hardakers.net",
     description="A python module and command to try really hard to get a mime-type for a file",
