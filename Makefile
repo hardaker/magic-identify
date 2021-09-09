@@ -4,7 +4,7 @@ it:
 testit:
 	PYTHONPATH=. pytest-3
 
-package: # testit
+package: testit
 	rm -rf dist
 	python3 setup.py sdist bdist_wheel
 
