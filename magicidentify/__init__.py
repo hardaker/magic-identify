@@ -33,7 +33,6 @@ class MagicIdentify():
         except Exception as ex:
             debug(f"magic creation exception: {ex}")
             debug("failed to create the magic class - need python-magic > 0.4.24")
-            self.magic = magic.Magic()
         self.prefer_identify = prefer_identify
 
     def identify(self, filepath):
