@@ -53,6 +53,8 @@ def main():
             id = c.use_identify(arg)
             print(f"  using identify: {', '.join(id)}")
 
+            id = c.use_hack_it(arg)
+            print(f"  using hack:     {', '.join(id)}")
 
 if __name__ == "__main__":
     main()

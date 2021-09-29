@@ -81,8 +81,14 @@ class MagicIdentify():
                 if len(tags) == 0:
                     tags = ['unknown']
                 return ("/".join(tags), "text/x-" + tags[0])
-            else:
-                # try to guess based on contents
+            return("unknown", 'unknown')
+        except Exception as exp:
+            debug(f"Failed to read/identify {filepath}: {exp}")
+            return ("unknown", "unknown")
+
+    def use_hack_it(self, filepath):
+        try:
+            with open(filepath) as f:
                 sh_markers = 0
                 for line in f:
                     for keyword in ['wget', 'curl', 'chmod', 'rm',
@@ -91,9 +97,6 @@ class MagicIdentify():
                             sh_markers += 1
                 if sh_markers > 3:
                     return ("unmarked shell", "text/x-shellscript")
-
-                return("unknown", 'unknown')
         except Exception as exp:
-            debug(f"Failed to read/identify {filepath}: {exp}")
-            return ("unknown", "unknown")
-
+            debug(f"failed to hack-analyze {filepath}")
+        return ("unknown", "unknown")
