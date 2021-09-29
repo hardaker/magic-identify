@@ -26,7 +26,7 @@ from logging import debug, info, warning, error, critical
 
 class MagicIdentify():
     """A wrapper class around both the magic and identify classes"""
-    def __init__(self, prefer_identify=False):
+    def __init__(self, prefer_identify=False, prefer_magic=False):
         try:
             import magic
             self.magic = magic.Magic(magic.MAGIC_MIME)
@@ -34,23 +34,44 @@ class MagicIdentify():
             debug(f"magic creation exception: {ex}")
             debug("failed to create the magic class - need python-magic > 0.4.24")
         self.prefer_identify = prefer_identify
+        self.prefer_magic = prefer_magic
 
     def identify(self, filepath):
         "identify a file to the best of our cooperative ability"
-        if self.prefer_identify:
-            (results, mime) = self.use_identify(filepath)
-            if results and mime and results != "unknown":
-                return (results, mime)
 
-        mime = self.use_magic(filepath)
-        if mime[0] == 'text/plain' or mime[0] == 'application/octet-stream' \
-           or mime[1] == "missing":
-            debug("magic was boring -- trying identify")
-            identify_results = self.use_identify(filepath)
-            if not identify_results or identify_results[0] == "unknown":
-                debug("ok, identify was even more boring -- returning magic")
-                return mime
-        return mime
+        # should we only use identify?
+        if self.prefer_identify:
+            return self.use_identify(filepath)
+
+        # should we only use magic?
+        if self.prefer_magic:
+            return self.use_magic(filepath)
+
+        # get the magic output and see if it's any good
+        magic_results = self.use_magic(filepath)
+
+        # if it looks like a reasonable repsonse, return it
+        if magic_results[0] != 'text/plain' and \
+           magic_results[0] != 'application/octet-stream' and \
+           magic_results[1] != 'missing':
+            debug("using magic results")
+            return magic_results
+
+        debug("magic was boring -- trying identify")
+        identify_results = self.use_identify(filepath)
+        if identify_results and identify_results[0] != "unknown":
+            debug("using identify results")
+            return identify_results
+
+        # Ok, super boring so far...  try our internal hacks
+        debug("ok, even magic was boring -- trying our hacks")
+        hack_results = self.use_hack_it(filepath)
+        if hack_results and hack_results[0] != "unknown":
+            debug("using hack results")
+            return hack_results
+
+        # falling back to magic as nothing produced good results
+        return magic_results
 
     def use_magic(self, filepath):
         "use the magic module for doing identification"
@@ -91,9 +112,10 @@ class MagicIdentify():
             with open(filepath) as f:
                 sh_markers = 0
                 for line in f:
+                    parts = line.split(" ")
                     for keyword in ['wget', 'curl', 'chmod', 'rm',
                                     'cd', 'mips', 'arm']:
-                        if keyword in line:
+                        if keyword in parts:
                             sh_markers += 1
                 if sh_markers > 3:
                     return ("unmarked shell", "text/x-shellscript")

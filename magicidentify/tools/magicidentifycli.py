@@ -22,7 +22,10 @@ def main():
                             help="Define the logging verbosity level (debug, info, warning, error, fotal, critical).")
 
         parser.add_argument("-i", "--prefer-identify", action="store_true",
-                            help="Prefer identify over magic")
+                            help="Force output from just magic")
+
+        parser.add_argument("-m", "--prefer-magic", action="store_true",
+                            help="Force output from just identify")
 
         parser.add_argument("-q", "--quiet", action="store_true",
                             help="Simplfy output to just the best mime-type")
@@ -38,7 +41,8 @@ def main():
 
     args = parse_args()
 
-    c = MagicIdentify(args.prefer_identify)
+    c = MagicIdentify(prefer_identify=args.prefer_identify,
+                      prefer_magic=args.prefer_magic,)
     for arg in args.input_files:
         parts = c.identify(arg)
 
