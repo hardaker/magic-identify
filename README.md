@@ -24,9 +24,11 @@ identifier.
     /bin/ls: application/x-pie-executable, application/x-pie-executable
       using magic:    application/x-pie-executable, application/x-pie-executable
       using identify: unknown, unknown
+      using hack:     unknown, unknown
     /sbin/ifup: inode/symlink, inode/symlink
       using magic:    inode/symlink, inode/symlink
       using identify: bash/shell, text/x-bash
+      using hack:     unknown, unknown
 
     # magic-identify -q /bin/ls /sbin/ifup
     application/x-pie-executable
@@ -35,7 +37,6 @@ identifier.
 # Todo
 
 - Handle more boring cases from some outputs (text/inode)
-- test suite
 
 # Acknowledgements
 
