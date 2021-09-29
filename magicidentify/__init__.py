@@ -114,7 +114,9 @@ class MagicIdentify():
                 for line in f:
                     parts = line.split(" ")
                     for keyword in ['wget', 'curl', 'chmod', 'rm',
-                                    'cd', 'mips', 'arm']:
+                                    'cd', 'mips', 'arm', 'sh',
+                                    'apt', 'dpkg', 'sudo', 'mkdir', 'alias'
+                                    'fi', 'else']:
                         if keyword in parts:
                             sh_markers += 1
                 if sh_markers > 3:
