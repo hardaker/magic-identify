@@ -11,7 +11,7 @@ setuptools.setup(
     description="A python module and command to try really hard to get a mime-type for a file",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/gawseed/pyfsdb",
+    url="https://github.com/hardaker/magic-identify",
     packages=setuptools.find_packages(),
     entry_points={
         'console_scripts': [
