@@ -9,7 +9,7 @@ package: testit
 	python3 setup.py sdist bdist_wheel
 
 publish:
-	python3 -m twine upload -u hardaker dist/*
+	python3 -m twine upload -u __token__ dist/*
 
 install:
 	python3 setup.py install --user
