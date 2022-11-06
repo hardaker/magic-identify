@@ -30,6 +30,4 @@ setuptools.setup(
     install_requires=required,
     test_suite='nose.collector',
     tests_require=['nose'],
-    install_requires = ['python-magic >= 0.4.24',
-                     'identify >= 2.2.13'],
 )
