@@ -8,7 +8,7 @@ with open("requirements.txt", "r") as f:
 
 setuptools.setup(
     name="magic-identify",
-    version="0.2",
+    version="0.2.1",
     author="Wes Hardaker",
     author_email="opensource@hardakers.net",
     description="A python module and command to try really hard to get a mime-type for a file",
