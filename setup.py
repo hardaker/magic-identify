@@ -3,6 +3,9 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open("requirements.txt", "r") as f:
+    required = f.read().splitlines()
+
 setuptools.setup(
     name="magic-identify",
     version="0.2",
@@ -24,6 +27,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires = '>=3.6',
+    install_requires=required,
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires = ['python-magic >= 0.4.24',
